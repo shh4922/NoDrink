@@ -1,0 +1,27 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+# Workflow 이름
+name: Swift
+
+# ✅ 트리거 조건 (push 하거나 PR 하면 하단의 jobs를 실행하겠다는 뜻)
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# ✅ 트리거 발생 시 실행할 작업들 
+jobs:
+  # ✅ 이번 예시에서는 "build"라는 1개 작업만 진행
+  build:
+
+    runs-on: macos-latest  #iOS 플랫폼에서 실행한다는 뜻
+    
+    # ✅ job 내부에서 순차적으로 실행할 내용
+    steps:
+    - uses: actions/checkout@v3 #repository에 체크아웃해서 job이 접근 가능하게 한다는 뜻 (Github Actions에서 미리 정의한 명령)
+    - name: Build
+      run: | 
+        xcodebuild clean test -project NoSmoking.xcodeproj \
+        swift test -v
